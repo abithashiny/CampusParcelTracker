@@ -1,5 +1,6 @@
 // src/navigation/AppNavigator.js
 import React from 'react';
+import CommunityChatScreen from '../screens/CommunityChatScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AdminDashboard from '../screens/AdminDashboard';
@@ -23,6 +24,11 @@ export default function AppNavigator() {
           name="NotificationScreen" 
           component={NotificationScreen} 
           options={{ title: 'Alert Center 🔔' }} 
+        />
+        <Stack.Screen
+        name="CommunityChat"
+        component={CommunityChatScreen}
+        options={{ title: '💬 Community Chat' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
