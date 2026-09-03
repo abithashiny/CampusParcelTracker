@@ -116,13 +116,17 @@ export default function StudentDashboard({ route, navigation }) {
   };
 
   const resolveFound = async (item) => {
-    try {
-      await updateDoc(doc(db, "missed_board", item.id), { foundBy: studentProfile.name });
-      Alert.alert("Resolved", "Thank you for finding the package! Owner has been updated.");
-    } catch (error) {
-      Alert.alert("Error", "Action failure.");
-    }
-  };
+  try {
+    await updateDoc(doc(db, "missed_board", item.id), {
+      foundBy: studentProfile.name,
+      foundByCpms: studentProfile.cpms
+    });
+
+    Alert.alert("Resolved", "Thank you for finding the package! Owner has been updated.");
+  } catch (error) {
+    Alert.alert("Error", "Action failure.");
+  }
+};
 
   if (loading) return <View style={styles.center}><ActivityIndicator size="large" color="#1e3d59" /></View>;
 
@@ -219,7 +223,8 @@ export default function StudentDashboard({ route, navigation }) {
               </View>
               <Text>Belongs to: {item.originalOwner}</Text>
               {item.foundBy ? (
-                <Text style={styles.foundText}>✅ Found & Returned by: {item.foundBy}</Text>
+                <Text style={styles.foundText}> 
+                ✅ Found & Returned by: {item.foundBy} ({item.foundByCpms})</Text>
               ) : (
                 <TouchableOpacity style={styles.resolveBtn} onPress={() => resolveFound(item)}>
                   <Text style={{ color: '#fff', textAlign: 'center', fontWeight: '600' }}>I found this package</Text>
